@@ -23,7 +23,7 @@ TEST(MatrixImplementation, GetSize_4) {
     EXPECT_EQ(matrix.get_size(), 4);
 }
 
-TEST(MatrixImplementationD, GetSize_4) {
+TEST(MatrixImplementationD, GetSize_4D) {
     Matrix<double> matrix({
         { 25.5, 35.5, 45.5, 28.5 },
         { 1.5, 4.5, 4.5, 34.5 },
@@ -50,14 +50,14 @@ TEST(MatrixImplementation, GetValue_Basic) {
     }
 }
 
-TEST(MatrixImplementationD, GetValue_Basic) {
+TEST(MatrixImplementationD, GetValue_BasicD) {
     std::vector<std::vector<double>> expected = {
         { 0.45, 1.55, 2.23 },
         { 3.7, 4.5, 5.3 },
         { 6.5, 7.8, 8.43 },
     };
 
-    Matrix<int> matrix(expected);
+    Matrix<double> matrix(expected);
 
     for (int i = 0; i < expected.size(); i++) {
         for (int j = 0; i < expected.size(); i++) {
@@ -110,7 +110,7 @@ TEST(MatrixImplementation, SetValue_Basic) {
     }
 }
 
-TEST(MatrixImplementationD, SetValue_Basic) {
+TEST(MatrixImplementationD, SetValue_BasicD) {
     std::vector<std::vector<double>> initial = {
         { 0.0, 0.0, 0.0 },
         { 0.0, 0.0, 0.0 },
@@ -184,15 +184,15 @@ TEST(MatrixImplementation, Addition_Basic) {
     }
 }
 
-TEST(MatrixImplementationD, Addition_Basic) {
+TEST(MatrixImplementationD, Addition_BasicD) {
     std::vector<std::vector<double>> initial = {
         { 1.0, 1.0, 1.0 },
         { 1.0, 1.0, 1.0 },
         { 1.0, 1.0, 1.0 },
     };
 
-    Matrix<int> matrix1(initial);
-    Matrix<int> matrix2(initial);
+    Matrix<double> matrix1(initial);
+    Matrix<double> matrix2(initial);
     auto result = matrix1 + matrix2;
 
     for (int i = 0; i < initial.size(); i++) {
@@ -249,15 +249,15 @@ TEST(MatrixImplementation, Multiplication_Basic) {
     }
 }
 
-TEST(MatrixImplementationD, Multiplication_Basic) {
+TEST(MatrixImplementationD, Multiplication_BasicD) {
     std::vector<std::vector<double>> initial = {
         { 1.0, 1.0, 1.0 },
         { 1.0, 1.0, 1.0 },
         { 1.0, 1.0, 1.0 },
     };
 
-    Matrix<int> matrix1(initial);
-    Matrix<int> matrix2(initial);
+    Matrix<double> matrix1(initial);
+    Matrix<double> matrix2(initial);
     auto result = matrix1 * matrix2;
 
     for (int i = 0; i < initial.size(); i++) {
@@ -306,14 +306,14 @@ TEST(MatrixImplementation, DiagonalSumMajor) {
     EXPECT_EQ(matrix.sum_diagonal_major(), 13);
 }
 
-TEST(MatrixImplementationD, DiagonalSumMajor) {
+TEST(MatrixImplementationD, DiagonalSumMajorD) {
     std::vector<std::vector<double>> initial = {
         { 0.0, 0.0, 8.0 },
         { 6.0, 7.0, 8.0 },
         { 4.0, 1.0, 6.0 },
     };
 
-    Matrix<int> matrix(initial);
+    Matrix<double> matrix(initial);
     EXPECT_EQ(matrix.sum_diagonal_major(), 13.0);
 }
 
@@ -328,14 +328,14 @@ TEST(MatrixImplementation, DiagonalSumMinor) {
     EXPECT_EQ(matrix.sum_diagonal_minor(), 19);
 }
 
-TEST(MatrixImplementationD, DiagonalSumMinor) {
+TEST(MatrixImplementationD, DiagonalSumMinorD) {
     std::vector<std::vector<double>> initial = {
         { 0.0, 0.0, 8.0 },
         { 6.0, 7.0, 8.0 },
         { 4.0, 1.0, 6.0 },
     };
 
-    Matrix<int> matrix(initial);
+    Matrix<double> matrix(initial);
     EXPECT_EQ(matrix.sum_diagonal_minor(), 19.0);
 }
 
@@ -362,7 +362,7 @@ TEST(MatrixImplementation, SwapRows_Basic) {
     }
 }
 
-TEST(MatrixImplementationD, SwapRows_Basic) {
+TEST(MatrixImplementationD, SwapRows_BasicD) {
     std::vector<std::vector<double>> initial = {
         { 1.0, 1.0, 1.0 },
         { 2.0, 2.0, 2.0 },
@@ -375,7 +375,7 @@ TEST(MatrixImplementationD, SwapRows_Basic) {
         { 3.0, 3.0, 3.0 },
     };
 
-    Matrix<int> matrix(initial);
+    Matrix<double> matrix(initial);
     matrix.swap_rows(0, 1);
 
     for (int i = 0; i < initial.size(); i++) {
@@ -432,7 +432,7 @@ TEST(MatrixImplementation, SwapCols_Basic) {
     }
 }
 
-TEST(MatrixImplementationD, SwapCols_Basic) {
+TEST(MatrixImplementationD, SwapCols_BasicD) {
     std::vector<std::vector<double>> initial = {
         { 1.0, 2.0, 3.0 },
         { 1.0, 2.0, 3.0 },
@@ -445,7 +445,7 @@ TEST(MatrixImplementationD, SwapCols_Basic) {
         { 3.0, 2.0, 1.0 },
     };
 
-    Matrix<int> matrix(initial);
+    Matrix<double> matrix(initial);
     matrix.swap_cols(0, 2);
 
     for (int i = 0; i < initial.size(); i++) {
