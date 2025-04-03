@@ -82,7 +82,7 @@ void Matrix<T>::set_value(std::size_t i, std::size_t j, T n) {
 }
 
 template <typename T>
-int Matrix<T>::get_value(std::size_t i, std::size_t j) const {
+T Matrix<T>::get_value(std::size_t i, std::size_t j) const {
     if (i >= _N || j >= _N) {
         throw std::out_of_range("Index out of range");
     }
@@ -95,7 +95,7 @@ int Matrix<T>::get_size() const{
 }
 
 template <typename T>
-int Matrix<T>::sum_diagonal_major() const{
+T Matrix<T>::sum_diagonal_major() const{
     int sum = 0;
     for (std::size_t i = 0; i < _N; ++i) {
         sum += nums[i][i];
@@ -104,7 +104,7 @@ int Matrix<T>::sum_diagonal_major() const{
 }
 
 template <typename T>
-int Matrix<T>::sum_diagonal_minor() const{
+T Matrix<T>::sum_diagonal_minor() const{
     int sum = 0;
     for (std::size_t i = 0; i < _N; ++i) {
         sum += nums[i][_N - i - 1];

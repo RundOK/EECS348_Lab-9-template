@@ -15,13 +15,13 @@ public:
 
     static std::vector<Matrix> read_from_file(const std::string &filename);
 
-    Matrix operator+(const Matrix &rhs) const;
-    Matrix operator*(const Matrix &rhs) const;
+    Matrix<T> operator+(const Matrix<T> &rhs) const;
+    Matrix<T> operator*(const Matrix<T> &rhs) const;
     void set_value(std::size_t i, std::size_t j, T n);
-    int get_value(std::size_t i, std::size_t j) const;
+    T get_value(std::size_t i, std::size_t j) const;
     int get_size() const;
-    int sum_diagonal_major() const;
-    int sum_diagonal_minor() const;
+    T sum_diagonal_major() const;
+    T sum_diagonal_minor() const;
     void swap_rows(std::size_t r1, std::size_t r2);
     void swap_cols(std::size_t c1, std::size_t c2);
     void print_matrix() const;
