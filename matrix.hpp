@@ -4,6 +4,11 @@
 #include <cstdint>
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <stdexcept>
+
 
 // modify this class declaration to take a template for the type of the data it holds
 
