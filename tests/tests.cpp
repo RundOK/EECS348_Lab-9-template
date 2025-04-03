@@ -23,11 +23,38 @@ TEST(MatrixImplementation, GetSize_4) {
     EXPECT_EQ(matrix.get_size(), 4);
 }
 
+TEST(MatrixImplementationD, GetSize_4) {
+    Matrix<double> matrix({
+        { 25.5, 35.5, 45.5, 28.5 },
+        { 1.5, 4.5, 4.5, 34.5 },
+        { 8.05, 8.05, 8.05, 1.1 },
+        { 4.5,   8.9,  9.6, 1.1 },
+    });
+
+    EXPECT_EQ(matrix.get_size(), 4);
+}
+
 TEST(MatrixImplementation, GetValue_Basic) {
     std::vector<std::vector<int>> expected = {
         { 0, 1, 2 },
         { 3, 4, 5 },
         { 6, 7, 8 },
+    };
+
+    Matrix<int> matrix(expected);
+
+    for (int i = 0; i < expected.size(); i++) {
+        for (int j = 0; i < expected.size(); i++) {
+            EXPECT_EQ(matrix.get_value(i, j), expected[i][j]);
+        }
+    }
+}
+
+TEST(MatrixImplementationD, GetValue_Basic) {
+    std::vector<std::vector<double>> expected = {
+        { 0.45, 1.55, 2.23 },
+        { 3.7, 4.5, 5.3 },
+        { 6.5, 7.8, 8.43 },
     };
 
     Matrix<int> matrix(expected);
@@ -69,6 +96,33 @@ TEST(MatrixImplementation, SetValue_Basic) {
     };
 
     Matrix<int> matrix(initial);
+
+    for (int i = 0; i < expected.size(); i++) {
+        for (int j = 0; i < expected.size(); i++) {
+            matrix.set_value(i, j, expected[i][j]);
+        }
+    }
+
+    for (int i = 0; i < expected.size(); i++) {
+        for (int j = 0; i < expected.size(); i++) {
+            EXPECT_EQ(matrix.get_value(i, j), expected[i][j]);
+        }
+    }
+}
+
+TEST(MatrixImplementationD, SetValue_Basic) {
+    std::vector<std::vector<double>> initial = {
+        { 0.0, 0.0, 0.0 },
+        { 0.0, 0.0, 0.0 },
+        { 0.0, 0.0, 0.0 },
+    };
+    std::vector<std::vector<double>> expected = {
+        { 1.1, 2.1, 3.1 },
+        { 4.1, 5.1, 6.1 },
+        { 7.1, 8.1, 9.1 },
+    };
+
+    Matrix<double> matrix(initial);
 
     for (int i = 0; i < expected.size(); i++) {
         for (int j = 0; i < expected.size(); i++) {
@@ -130,6 +184,25 @@ TEST(MatrixImplementation, Addition_Basic) {
     }
 }
 
+TEST(MatrixImplementationD, Addition_Basic) {
+    std::vector<std::vector<double>> initial = {
+        { 1.0, 1.0, 1.0 },
+        { 1.0, 1.0, 1.0 },
+        { 1.0, 1.0, 1.0 },
+    };
+
+    Matrix<int> matrix1(initial);
+    Matrix<int> matrix2(initial);
+    auto result = matrix1 + matrix2;
+
+    for (int i = 0; i < initial.size(); i++) {
+        for (int j = 0; j < initial.size(); j++) {
+            EXPECT_EQ(result.get_value(i, j), 2.0);
+        }
+    }
+}
+
+
 TEST(MatrixImplementation, Addition_Random) {
     std::vector<std::vector<int>> initial1 = {
         { 0, 0, 8 },
@@ -176,6 +249,24 @@ TEST(MatrixImplementation, Multiplication_Basic) {
     }
 }
 
+TEST(MatrixImplementationD, Multiplication_Basic) {
+    std::vector<std::vector<double>> initial = {
+        { 1.0, 1.0, 1.0 },
+        { 1.0, 1.0, 1.0 },
+        { 1.0, 1.0, 1.0 },
+    };
+
+    Matrix<int> matrix1(initial);
+    Matrix<int> matrix2(initial);
+    auto result = matrix1 * matrix2;
+
+    for (int i = 0; i < initial.size(); i++) {
+        for (int j = 0; j < initial.size(); j++) {
+            EXPECT_EQ(result.get_value(i, j), 3.0);
+        }
+    }
+}
+
 TEST(MatrixImplementation, Multiplication_Random) {
     std::vector<std::vector<int>> initial1 = {
         { 0, 0, 8 },
@@ -215,6 +306,17 @@ TEST(MatrixImplementation, DiagonalSumMajor) {
     EXPECT_EQ(matrix.sum_diagonal_major(), 13);
 }
 
+TEST(MatrixImplementationD, DiagonalSumMajor) {
+    std::vector<std::vector<double>> initial = {
+        { 0.0, 0.0, 8.0 },
+        { 6.0, 7.0, 8.0 },
+        { 4.0, 1.0, 6.0 },
+    };
+
+    Matrix<int> matrix(initial);
+    EXPECT_EQ(matrix.sum_diagonal_major(), 13.0);
+}
+
 TEST(MatrixImplementation, DiagonalSumMinor) {
     std::vector<std::vector<int>> initial = {
         { 0, 0, 8 },
@@ -224,6 +326,17 @@ TEST(MatrixImplementation, DiagonalSumMinor) {
 
     Matrix<int> matrix(initial);
     EXPECT_EQ(matrix.sum_diagonal_minor(), 19);
+}
+
+TEST(MatrixImplementationD, DiagonalSumMinor) {
+    std::vector<std::vector<double>> initial = {
+        { 0.0, 0.0, 8.0 },
+        { 6.0, 7.0, 8.0 },
+        { 4.0, 1.0, 6.0 },
+    };
+
+    Matrix<int> matrix(initial);
+    EXPECT_EQ(matrix.sum_diagonal_minor(), 19.0);
 }
 
 TEST(MatrixImplementation, SwapRows_Basic) {
@@ -237,6 +350,29 @@ TEST(MatrixImplementation, SwapRows_Basic) {
         { 2, 2, 2 },
         { 1, 1, 1 },
         { 3, 3, 3 },
+    };
+
+    Matrix<int> matrix(initial);
+    matrix.swap_rows(0, 1);
+
+    for (int i = 0; i < initial.size(); i++) {
+        for (int j = 0; j < initial.size(); j++) {
+            EXPECT_EQ(matrix.get_value(i, j), expected[i][j]);
+        }
+    }
+}
+
+TEST(MatrixImplementationD, SwapRows_Basic) {
+    std::vector<std::vector<double>> initial = {
+        { 1.0, 1.0, 1.0 },
+        { 2.0, 2.0, 2.0 },
+        { 3.0, 3.0, 3.0 },
+    };
+
+    std::vector<std::vector<double>> expected = {
+        { 2.0, 2.0, 2.0 },
+        { 1.0, 1.0, 1.0 },
+        { 3.0, 3.0, 3.0 },
     };
 
     Matrix<int> matrix(initial);
@@ -284,6 +420,29 @@ TEST(MatrixImplementation, SwapCols_Basic) {
         { 3, 2, 1 },
         { 3, 2, 1 },
         { 3, 2, 1 },
+    };
+
+    Matrix<int> matrix(initial);
+    matrix.swap_cols(0, 2);
+
+    for (int i = 0; i < initial.size(); i++) {
+        for (int j = 0; j < initial.size(); j++) {
+            EXPECT_EQ(matrix.get_value(i, j), expected[i][j]);
+        }
+    }
+}
+
+TEST(MatrixImplementationD, SwapCols_Basic) {
+    std::vector<std::vector<double>> initial = {
+        { 1.0, 2.0, 3.0 },
+        { 1.0, 2.0, 3.0 },
+        { 1.0, 2.0, 3.0 },
+    };
+
+    std::vector<std::vector<double>> expected = {
+        { 3.0, 2.0, 1.0 },
+        { 3.0, 2.0, 1.0 },
+        { 3.0, 2.0, 1.0 },
     };
 
     Matrix<int> matrix(initial);
