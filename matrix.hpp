@@ -20,11 +20,24 @@ public:
     void set_value(std::size_t i, std::size_t j, T n);
     T get_value(std::size_t i, std::size_t j) const;
     int get_size() const;
+    int get_size() const{
+        return _N;
+    }
+
     T sum_diagonal_major() const;
     T sum_diagonal_minor() const;
     void swap_rows(std::size_t r1, std::size_t r2);
     void swap_cols(std::size_t c1, std::size_t c2);
-    void print_matrix() const;
+
+    void print_matrix() const{
+        for (const auto &row : nums) {
+            for (const auto &elem : row) {
+                std::cout << std::setw(5) << elem << " ";
+            }
+            std::cout << '\n';
+        }
+        
+    }
 
 private:
     std::size_t _N;
