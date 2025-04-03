@@ -25,8 +25,8 @@ std::vector<Matrix<T>> Matrix<T>::read_from_file(const std::string &filename) {
     std::size_t N;
     file >> N;
     
-    std::vector<std::vector<int>> matrix1(N, std::vector<int>(N));
-    std::vector<std::vector<int>> matrix2(N, std::vector<int>(N));
+    std::vector<std::vector<T>> matrix1(N, std::vector<T>(N));
+    std::vector<std::vector<T>> matrix2(N, std::vector<T>(N));
     
     for (std::size_t i = 0; i < N; ++i) {
         for (std::size_t j = 0; j < N; ++j) {
@@ -96,7 +96,7 @@ int Matrix<T>::get_size() const{
 
 template <typename T>
 T Matrix<T>::sum_diagonal_major() const{
-    int sum = 0;
+    T sum = 0;
     for (std::size_t i = 0; i < _N; ++i) {
         sum += nums[i][i];
     }
@@ -105,7 +105,7 @@ T Matrix<T>::sum_diagonal_major() const{
 
 template <typename T>
 T Matrix<T>::sum_diagonal_minor() const{
-    int sum = 0;
+    T sum = 0;
     for (std::size_t i = 0; i < _N; ++i) {
         sum += nums[i][_N - i - 1];
     }
